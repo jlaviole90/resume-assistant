@@ -9,5 +9,11 @@ __pycache__/
 venv/
 .pip_libs/
 
+# Tool-specific autoload mirrors of .claude/ (kept local; .claude/ is canonical)
+.cursor/
+.github/copilot-instructions.md
+.windsurf/
+.aider*
+
 # OS / editor
 .DS_Store

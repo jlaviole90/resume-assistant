@@ -15,3 +15,25 @@ duplicating it, any agent working here should read and follow that setup directl
 
 Treat `CLAUDE.md` and everything under `.claude/` as the source of truth. If
 guidance ever appears to conflict, `CLAUDE.md` wins.
+
+## First-run bootstrap (autoload for your own tool)
+
+If your tool autoloads skills/rules from a path other than `.claude/`, replicate
+this setup into your expected location once, so it loads automatically going
+forward. Keep `.claude/` as the canonical source; your copy must mirror it, not
+diverge.
+
+1. Detect your tool's conventional config path, for example:
+   - Cursor: `.cursor/skills/<name>/SKILL.md` and `.cursor/rules/<name>.mdc`
+   - Other tools: use whatever path that tool autoloads.
+2. Mirror the contents of `.claude/skills/` (and `.claude/rules/`) there. Prefer
+   symlinks so the two stay in sync automatically:
+   - `mkdir -p .cursor && ln -s ../.claude/skills .cursor/skills`
+   If symlinks are not viable, copy the files instead and re-copy whenever
+   `.claude/` changes.
+3. If your tool's rule format differs (e.g. Cursor `.mdc` needs YAML frontmatter
+   with `description`/`globs`/`alwaysApply`), wrap the same rule content in that
+   format rather than rewriting the guidance.
+4. Do not edit the mirrored copies as a source of truth. Make changes in `.claude/`
+   and re-sync.
+
